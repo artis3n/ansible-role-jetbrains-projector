@@ -1,8 +1,10 @@
-- name: Install Dependencies
-  become: true
-  ansible.builtin.apt:
-    name: '{{ apt_dependencies }}'
-    update_cache: true
+- name: Operating System
+  ansible.builtin.debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }} ({{ ansible_distribution_release }})"
+
+- name: Debian and related families
+  when: ansible_distribution in debian_family
+  include_tasks: debian.yml
 
 - name: Ensure pip is up-to-date
   changed_when: false

@@ -13,6 +13,7 @@ jobs:
       matrix:
         distros:
           - ghcr.io/artis3n/docker-ubuntu2104-ansible:latest
+          - geerlingguy/docker-centos8-ansible:latest
       fail-fast: false
   
     steps:

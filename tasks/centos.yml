@@ -1,0 +1,5 @@
+- name: Install Dependencies
+  become: true
+  ansible.builtin.dnf:
+    name: '{{ dnf_dependencies }}'
+    update_cache: true

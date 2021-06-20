@@ -10,7 +10,25 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
+        - eoan
+        - bionic
+        - xenial
+        - focal
+        - groovy
         - hirsute
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Amazon Linux 2
+      version:
+        - any
+    - name: Debian
+      versions:
+        - buster
+        - stretch
+        - bullseye
+        - sid
 
   galaxy_tags:
     - jetbrains
