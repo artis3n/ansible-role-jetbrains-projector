@@ -1,0 +1,20 @@
+galaxy_info:
+  role_name: jetbrains_projector
+  author: artis3n
+  description: Install and configure a Jetbrains Projector server.
+  license: license (MIT)
+
+  min_ansible_version: 4.1
+
+  # Find supported platforms on https://galaxy.ansible.com/api/v1/platforms/
+  platforms:
+    - name: Ubuntu
+      versions:
+        - hirsute
+
+  galaxy_tags:
+    - jetbrains
+    - development
+    - web
+
+dependencies: []

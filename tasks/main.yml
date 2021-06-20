@@ -1,0 +1,15 @@
+- name: Install Dependencies
+  become: true
+  ansible.builtin.apt:
+    name: '{{ apt_dependencies }}'
+    update_cache: true
+
+- name: Ensure pip is up-to-date
+  changed_when: false
+  ansible.builtin.command:
+    cmd: python3 -m pip install -U pip
+
+- name: Install Projector
+  ansible.builtin.pip:
+    name: projector-installer
+    executable: /usr/local/bin/pip3
