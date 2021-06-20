@@ -3,3 +3,4 @@
   ansible.builtin.apt:
     name: '{{ apt_dependencies }}'
     update_cache: true
+    state: present
