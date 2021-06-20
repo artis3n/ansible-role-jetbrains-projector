@@ -20,7 +20,6 @@ jobs:
           - geerlingguy/docker-amazonlinux2-ansible:latest
           - ghcr.io/artis3n/docker-debian11-ansible:latest
           - geerlingguy/docker-debian10-ansible:latest
-          - geerlingguy/docker-debian9-ansible:latest
       fail-fast: false
   
     steps:
