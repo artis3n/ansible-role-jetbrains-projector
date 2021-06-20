@@ -1,0 +1,19 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+
+  - name: Projector executable exists
+    ansible.builtin.command:
+      cmd: which projector
+    changed_when: false
+    register: which_projector
+  
+  - name: Assertions
+    ansible.builtin.assert:
+      that:
+        - which_projector.rc == 0
+        - which_projector.stdout == "/usr/local/bin/projector"
