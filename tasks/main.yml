@@ -19,3 +19,11 @@
   ansible.builtin.pip:
     name: projector-installer
     executable: /usr/local/bin/pip3
+
+- name: Install Projector IDEs
+  ansible.builtin.command:
+    # Expect an IDE in the list to be in the format: 'WebStorm 2021.1.2'.
+    # Splitting on a space and getting the first input should create a config 'WebStorm'.
+    cmd: projector --accept-license autoinstall --config-name "{{ item.split(' ')[0] }}" --ide-name "{{ item }}"
+    creates: "{{ lookup('env', 'HOME') }}/.projector/configs/{{ item.split(' ')[0] }}"
+  loop: "{{ ides }}"
