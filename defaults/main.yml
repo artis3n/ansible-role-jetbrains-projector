@@ -6,20 +6,26 @@ apt_dependencies:
   - libxrender1
   - libxtst6
   - python3
-  - python3-crypto
+  - python3-cryptography
   - python3-pip
 
-dnf_dependencies:
-  - python36
+yum_dependencies:
+  - python3
   - python3-pip
-  - pyOpenSSL
-  - python-cryptography
   - less
   - libXext
   - libXrender
   - libXtst
   - libXi
   - freetype
+
+centos7_dependencies:
+  - pyOpenSSL
+  - python-cryptography
+
+centos_modern_dependencies:
+  - python3-pyOpenSSL
+  - python3-cryptography
 
 debian_family:
   - Ubuntu

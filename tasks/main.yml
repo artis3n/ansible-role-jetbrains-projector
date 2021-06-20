@@ -4,11 +4,11 @@
 
 - name: Debian and related families
   when: ansible_distribution in debian_family
-  include_tasks: debian.yml
+  ansible.builtin.include_tasks: debian.yml
 
 - name: CentOS and related families
   when: ansible_distribution in centos_family
-  include_tasks: centos.yml
+  ansible.builtin.include_tasks: centos.yml
 
 - name: Ensure pip is up-to-date
   changed_when: false
