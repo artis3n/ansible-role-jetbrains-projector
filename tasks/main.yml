@@ -33,3 +33,15 @@
     # Check with 'locale -a'
     LC_ALL: en_US.utf8
     LANG: en_US.utf8
+
+- name: Set configuration idempotency folder
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.projector/configs/.idempotency"
+    state: directory
+    owner: "{{ ansible_user_id  }}"
+    group: "{{ ansible_user_id  }}"
+    mode: 0755
+
+- name: Set Configuration Files
+  ansible.builtin.include_tasks: lib/update_configs.yml
+  loop: "{{ ides }}"

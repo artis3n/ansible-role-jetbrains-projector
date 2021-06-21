@@ -1,0 +1,41 @@
+- name: Config Checksums
+  set_fact:
+    config_checksum: "{{ item | hash('sha256') }}"
+    existing_config_checksum: "{{ lookup('file', '{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}', errors='ignore' ) }}"
+
+- name: Configure Projector IDEs
+  when: config_checksum != existing_config_checksum
+  ansible.builtin.expect:
+    command: projector config edit "{{ item.split(' ')[0] }}"
+    responses:
+      Enter the path to IDE: ''
+      Enter a Projector listening port: ''
+      Would you like to specify listening address \(or host\) for Projector: 'y'
+      Enter a Projector listening address: ''
+      Would you like to specify hostname for Projector access: 'y'
+      Please specify the comma-separated list of host names: ''
+      Use secure connection: ''
+      Would you like to set password for connection: ''
+      Choose update channel: '2'
+
+- name: Save Config Checksum
+  when: config_checksum != existing_config_checksum
+  ansible.builtin.copy:
+    dest: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}"
+    content: "{{ item | hash('sha256') }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0644
+  register: copy_cmd
+
+- name: Debug 1
+  ansible.builtin.debug:
+    var: copy_cmd
+
+- name: Existing Config Checksum
+  ansible.builtin.debug:
+    msg: "{{ lookup('file', '{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}') }}"
+
+- name: Config Checksum
+  ansible.builtin.debug:
+    msg: "{{ config_checksum }}"
