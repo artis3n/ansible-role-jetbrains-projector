@@ -1,7 +1,13 @@
+- name: Get Existing Config Checksum
+  ansible.builtin.slurp:
+    src: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}"
+  ignore_errors: true
+  register: remote_checksum
+
 - name: Config Checksums
   set_fact:
     config_checksum: "{{ item | hash('sha256') }}"
-    existing_config_checksum: "{{ lookup('file', '{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}', errors='ignore' ) }}"
+    existing_config_checksum: "{{ remote_checksum.content | default('Cg==') | b64decode }}"  # default is base64-encoded empty string
 
 - name: Configure Projector IDEs
   when: config_checksum != existing_config_checksum
@@ -19,7 +25,6 @@
       Choose update channel: '2'
 
 - name: Save Config Checksum
-  when: config_checksum != existing_config_checksum
   ansible.builtin.copy:
     dest: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}"
     content: "{{ item | hash('sha256') }}"
@@ -27,15 +32,3 @@
     group: "{{ ansible_user_id }}"
     mode: 0644
   register: copy_cmd
-
-- name: Debug 1
-  ansible.builtin.debug:
-    var: copy_cmd
-
-- name: Existing Config Checksum
-  ansible.builtin.debug:
-    msg: "{{ lookup('file', '{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.split(' ')[0] }}') }}"
-
-- name: Config Checksum
-  ansible.builtin.debug:
-    msg: "{{ config_checksum }}"
