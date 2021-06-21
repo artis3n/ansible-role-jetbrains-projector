@@ -18,15 +18,16 @@ yum_dependencies:
   - libXrender
   - libXtst
   - python3
-  - python3-pexpect
   - python3-pip
 
 centos7_dependencies:
+  - pexpect
   - pyOpenSSL
   - python-cryptography
 
 centos_modern_dependencies:
   - python3-cryptography
+  - python3-pexpect
   - python3-pyOpenSSL
 
 debian_family:
