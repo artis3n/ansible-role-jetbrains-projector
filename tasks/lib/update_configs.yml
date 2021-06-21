@@ -23,6 +23,12 @@
       Use secure connection: ''
       Would you like to set password for connection: ''
       Choose update channel: '2'
+  environment:
+    # centos 7 does not support C.utf8
+    # Every system seems to support en_US.utf8
+    # Check with 'locale -a'
+    LC_ALL: en_US.utf8
+    LANG: en_US.utf8
 
 - name: Save Config Checksum
   ansible.builtin.copy:

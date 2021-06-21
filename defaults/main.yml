@@ -21,9 +21,9 @@ yum_dependencies:
   - python3-pip
 
 centos7_dependencies:
-  - pexpect
   - pyOpenSSL
   - python-cryptography
+  # pexpect yum package version is too old to be used by Ansible, see centos.yml for alternative pip install
 
 centos_modern_dependencies:
   - python3-cryptography
