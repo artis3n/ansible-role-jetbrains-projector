@@ -27,3 +27,9 @@
     cmd: projector --accept-license autoinstall --config-name "{{ item.split(' ')[0] }}" --ide-name "{{ item }}"
     creates: "{{ ansible_env.HOME }}/.projector/configs/{{ item.split(' ')[0] }}"
   loop: "{{ ides }}"
+  environment:
+    # centos 7 does not support C.utf8
+    # Every system seems to support en_US.utf8
+    # Check with 'locale -a'
+    LC_ALL: en_US.utf8
+    LANG: en_US.utf8
