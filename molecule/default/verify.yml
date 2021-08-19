@@ -11,7 +11,7 @@
       cmd: which projector
     changed_when: false
     register: which_projector
-  
+
   - name: Assertions
     ansible.builtin.assert:
       that:

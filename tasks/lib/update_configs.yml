@@ -1,0 +1,43 @@
+- name: Get Existing Config Checksum
+  ansible.builtin.slurp:
+    src: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.name.split(' ')[0] }}"
+  ignore_errors: true
+  register: remote_checksum
+
+- name: Config Checksums
+  set_fact:
+    config_checksum: "{{ item | hash('sha256') }}"
+    existing_config_checksum: "{{ remote_checksum.content | default('Cg==') | b64decode }}"  # default is base64-encoded empty string
+
+- name: Configure Projector IDEs
+  when: config_checksum != existing_config_checksum
+  ansible.builtin.expect:
+    command: projector config edit "{{ item.name.split(' ')[0] }}"
+    responses:
+      Enter the path to IDE: ''  # This should always auto-accept the path projector has for this config, so "press enter" with empty string
+      Enter a Projector listening port: "{{ item.port | default('') }}"
+      Would you like to specify listening address \(or host\) for Projector: "{{ 'y' if item.address is defined else 'n' }}"
+      Enter a Projector listening address: "{{ item.address | default('*') }}"
+      Would you like to specify hostname for Projector access: "{{ 'y' if item.restricted_access_hostnames is defined else 'n' }}"
+      Please specify the comma-separated list of host names: "{{ item.restricted_access_hostnames | default('0.0.0.0') }}"
+      Use secure connection: "{{ item.secure_connection | default('n') }}"
+      Would you like to set password for connection: "{{ 'y' if item.required_connection_password is defined else 'n' }}"
+      Please specify RW password: "{{ item.required_connection_password | default('') }}"
+      Repeat password: "{{ item.required_connection_password | default('') }}"
+      Would you like to set separate read-only password: 'n'  # Can't successfully do this since 'repeat password' conflicts with earlier expect question
+      Choose update channel: '2'
+  environment:
+    # centos 7 does not support C.utf8
+    # Every system seems to support en_US.utf8
+    # Check with 'locale -a'
+    LC_ALL: en_US.utf8
+    LANG: en_US.utf8
+
+- name: Save Config Checksum
+  ansible.builtin.copy:
+    dest: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.name.split(' ')[0] }}"
+    content: "{{ item | hash('sha256') }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0644
+  register: copy_cmd

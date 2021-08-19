@@ -7,25 +7,28 @@ apt_dependencies:
   - libxtst6
   - python3
   - python3-cryptography
+  - python3-pexpect
   - python3-pip
 
 yum_dependencies:
-  - python3
-  - python3-pip
+  - freetype
   - less
   - libXext
+  - libXi
   - libXrender
   - libXtst
-  - libXi
-  - freetype
+  - python3
+  - python3-pip
 
 centos7_dependencies:
   - pyOpenSSL
   - python-cryptography
+  # pexpect yum package version is too old to be used by Ansible, see centos.yml for alternative pip install
 
 centos_modern_dependencies:
-  - python3-pyOpenSSL
   - python3-cryptography
+  - python3-pexpect
+  - python3-pyOpenSSL
 
 debian_family:
   - Ubuntu
@@ -33,5 +36,5 @@ debian_family:
   - Pop!_OS
 
 centos_family:
-  - CentOS
   - Amazon
+  - CentOS
