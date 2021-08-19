@@ -14,7 +14,7 @@
       ansible.builtin.yum:
         name: '{{ yum_dependencies + centos7_dependencies }}'
         state: present
-    
+
     - name: Install Pip Dependencies
       ansible.builtin.pip:
         name: pexpect

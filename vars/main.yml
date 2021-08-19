@@ -1,3 +1,14 @@
-# List of IDE versions to install, in the format "Name Year.version.patch"
-# e.g. Webstorm 2021.1.2
+# List of IDE versions to install, as an object
+# The only required field in each object is the name
+# Others will use default values
+#
+# ex:
+# ides:
+#   - name: Webstorm 2021.1.2
+#     address: '*'  # address or hostname IDE should listen from
+#     port: ''  # port IDE should listen from. Empty string allows jetbrains-projector to auto-assign a port
+#     restricted_access_hostnames: '0.0.0.0'  # Comma-separated list of hostnames allowed to access IDE
+#     secure_connection: 'n'
+#     required_connection_password: ''  # Query string password required for successful connections to IDE
+#     update_channel: 2  # 1 - IDEs tested specifically for compatibility with Projector. 2 - all IDE versions
 ides: []

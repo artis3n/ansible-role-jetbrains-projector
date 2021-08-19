@@ -7,5 +7,10 @@
         name: "artis3n.jetbrains_projector"
       vars:
         ides:
-          - WebStorm 2021.1.2
-          - GoLand 2021.1.3
+          - name: WebStorm 2021.1.2
+            port: 9876
+          - name: GoLand 2021.1.3
+            port: 9999
+            address: mygoland.ide
+            restricted_access_hostnames: 127.0.0.1
+            required_connection_password: mypass
