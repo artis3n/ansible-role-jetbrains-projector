@@ -19,7 +19,7 @@
       Would you like to specify listening address \(or host\) for Projector: "{{ 'y' if item.address is defined else 'n' }}"
       Enter a Projector listening address: "{{ item.address | default('*') }}"
       Would you like to specify hostname for Projector access: "{{ 'y' if item.restricted_access_hostnames is defined else 'n' }}"
-      Please specify the comma-separated list of host names: "{{ item.restricted_access_hostnames | default('0.0.0.0')}}"
+      Please specify the comma-separated list of host names: "{{ item.restricted_access_hostnames | default('0.0.0.0') }}"
       Use secure connection: "{{ item.secure_connection | default('n') }}"
       Would you like to set password for connection: "{{ 'y' if item.required_connection_password is defined else 'n' }}"
       Please specify RW password: "{{ item.required_connection_password | default('') }}"
