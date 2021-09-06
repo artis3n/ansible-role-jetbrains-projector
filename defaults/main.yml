@@ -1,40 +1,15 @@
-apt_dependencies:
-  - less
-  - libfreetype6
-  - libxext6
-  - libxi6
-  - libxrender1
-  - libxtst6
-  - python3
-  - python3-cryptography
-  - python3-pexpect
-  - python3-pip
-
-yum_dependencies:
-  - freetype
-  - less
-  - libXext
-  - libXi
-  - libXrender
-  - libXtst
-  - python3
-  - python3-pip
-
-centos7_dependencies:
-  - pyOpenSSL
-  - python-cryptography
-  # pexpect yum package version is too old to be used by Ansible, see centos.yml for alternative pip install
-
-centos_modern_dependencies:
-  - python3-cryptography
-  - python3-pexpect
-  - python3-pyOpenSSL
-
-debian_family:
-  - Ubuntu
-  - Debian
-  - Pop!_OS
-
-centos_family:
-  - Amazon
-  - CentOS
+---
+# List of IDE versions to install, as an object
+# The only required field in each object is the name
+# Others will use default values
+#
+# ex:
+# ides:
+#   - name: Webstorm 2021.1.2
+#     address: '*'  # address or hostname IDE should listen from
+#     port: ''  # port IDE should listen from. Empty string allows jetbrains-projector to auto-assign a port
+#     restricted_access_hostnames: '0.0.0.0'  # Comma-separated list of hostnames allowed to access IDE
+#     secure_connection: 'n'
+#     required_connection_password: ''  # Query string password required for successful connections to IDE
+#     update_channel: 2  # 1 - IDEs tested specifically for compatibility with Projector. 2 - all IDE versions
+ides: []

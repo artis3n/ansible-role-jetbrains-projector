@@ -1,0 +1,15 @@
+---
+- name: Copy service file
+  become: true
+  ansible.builtin.template:
+    src: ../files/ide.service.j2
+    dest: /etc/systemd/system/{{ item.name.split(' ')[0] }}.service
+    mode: '0644'
+  register: systemd_copy
+
+- name: Activate IDE - {{ item.name }}
+  ansible.builtin.systemd:
+    name: "{{ item.name.split(' ')[0] }}.service"
+    enabled: true
+    daemon_reload: true
+    state: started
