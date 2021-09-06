@@ -1,3 +1,4 @@
+---
 - name: Get Existing Config Checksum
   ansible.builtin.slurp:
     src: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.name.split(' ')[0] }}"

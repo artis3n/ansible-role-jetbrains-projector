@@ -1,0 +1,12 @@
+[Unit]
+Description=Jetbrains Projector - {{ item.name }}
+
+[Service]
+Type=simple
+ExecStart={{ ansible_env.HOME }}/.projector/configs/{{ item.name.split(' ')[0] }}/run.sh
+User={{ ansible_user_id }}
+Group={{ ansible_user_id }}
+Restart=always
+
+[Install]
+WantedBy=default.target
