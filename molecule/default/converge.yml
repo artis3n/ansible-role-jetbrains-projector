@@ -9,6 +9,7 @@
         ides:
           - name: WebStorm 2021.2.1
             port: 9876
+
           - name: GoLand 2021.2.2
             port: 9999
             address: 127.0.0.1

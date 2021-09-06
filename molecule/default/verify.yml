@@ -15,14 +15,6 @@
         - which_projector.rc == 0
         - which_projector.stdout == "/usr/local/bin/projector"
 
-  - name: Test systemd services
-    ansible.builtin.systemd:
-      name: "{{ item }}.service"
-      state: started
-    loop:
-      - WebStorm
-      - GoLand
-
   - name: Test IDEs
     ansible.builtin.uri:
       url: http://127.0.0.1:{{ item }}/
