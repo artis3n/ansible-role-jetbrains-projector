@@ -3,6 +3,12 @@
   ansible.builtin.debug:
     msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }} ({{ ansible_distribution_release }})"
 
+- name: Validate user input
+  ansible.builtin.include_tasks: lib/validate.yml
+  loop: "{{ ides }}"
+  loop_control:
+    label: "{{ item.name }}"
+
 - name: Debian and related families
   when: ansible_distribution in debian_family
   ansible.builtin.include_tasks: debian.yml
@@ -21,38 +27,24 @@
     name: projector-installer
     executable: /usr/local/bin/pip3
 
-- name: Install Projector IDEs
-  ansible.builtin.command:
-    # Expect an IDE in the list to be in the format: 'WebStorm 2021.1.2'.
-    # Splitting on a space and getting the first input should create a config 'WebStorm'.
-    cmd: projector --accept-license autoinstall --config-name "{{ item.name.split(' ')[0] }}" --ide-name "{{ item.name }}"
-    creates: "{{ ansible_env.HOME }}/.projector/configs/{{ item.name.split(' ')[0] }}"
-  loop: "{{ ides }}"
-  loop_control:
-    label: "{{ item.name }}"
-  environment:
-    # centos 7 does not support C.utf8
-    # Every system seems to support en_US.utf8
-    # Check with 'locale -a'
-    LC_ALL: en_US.utf8
-    LANG: en_US.utf8
-
 - name: Set configuration idempotency folder
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.projector/configs/.idempotency"
+    path: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency"
     state: directory
     owner: "{{ ansible_user_id  }}"
     group: "{{ ansible_user_id  }}"
-    mode: 0755
+    mode: '0700'
 
-- name: Set Configuration Files
-  ansible.builtin.include_tasks: lib/update_configs.yml
+- name: Uninstall IDE
+  ansible.builtin.include_tasks: lib/uninstall.yml
+  when: item.state is defined and item.state == 'absent'
   loop: "{{ ides }}"
   loop_control:
     label: "{{ item.name }}"
 
-- name: Configure systemd
-  ansible.builtin.include_tasks: lib/service.yml
+- name: Install IDE
+  ansible.builtin.include_tasks: lib/install.yml
+  when: item.state is not defined or item.state == 'present'
   loop: "{{ ides }}"
   loop_control:
     label: "{{ item.name }}"
