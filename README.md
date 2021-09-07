@@ -163,3 +163,15 @@ See [here][compatible IDEs] for Jetbrains' list of fully compatible IDEs.
 
 
 [compatible IDEs]: https://github.com/JetBrains/projector-installer/blob/master/projector_installer/compatible_ide.json
+
+# Dependencies
+
+None
+
+# License
+
+MIT
+
+# Author Information
+
+Ari Kalfus ([@artis3n](https://www.artis3nal.com/)) <dev@artis3nal.com>
