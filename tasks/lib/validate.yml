@@ -1,0 +1,10 @@
+---
+
+- name: Validation check
+  ansible.builtin.assert:
+    that:
+      - item.name is defined
+      - item.port is defined
+      - item.state is not defined or item.state == 'present' or item.state == 'absent'
+    success_msg: "{{ item.name }}: Validation succeeded."
+    fail_msg: "{{ item.name }}: Validation failed on user input. See above for the failing check."

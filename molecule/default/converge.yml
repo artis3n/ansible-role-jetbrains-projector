@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: "Include artis3n.jetbrains_projector"
-      include_role:
+      ansible.builtin.include_role:
         name: "artis3n.jetbrains_projector"
       vars:
         ides:
@@ -15,3 +15,15 @@
             address: 127.0.0.1
             restricted_access_hostnames: 127.0.0.1
             required_connection_password: mypass
+
+          - name: IntelliJ IDEA Ultimate 2021.2.1
+            port: 9000
+
+    - name: "Test uninstalling"
+      ansible.builtin.include_role:
+        name: artis3n.jetbrains_projector
+      vars:
+        ides:
+          - name: IntelliJ IDEA Ultimate 2021.2.1
+            port: 9000
+            state: absent
