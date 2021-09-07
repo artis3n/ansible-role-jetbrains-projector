@@ -13,7 +13,7 @@
     LANG: en_US.utf8
 
 - name: Set Configuration Files
-  ansible.builtin.include_tasks: update_configs.yml
+  ansible.builtin.include_tasks: ./update_configs.yml
 
 - name: Configure systemd
-  ansible.builtin.include_tasks: service.yml
+  ansible.builtin.include_tasks: ./service.yml

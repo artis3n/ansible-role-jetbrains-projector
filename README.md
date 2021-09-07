@@ -163,9 +163,6 @@ If you would like to enforce full compatibility with Projector, set this value t
 Note that IDE installation may fail in weird ways if you set this option and supply a non-compatible IDE version.
 See [here][compatible IDEs] for Jetbrains' list of fully compatible IDEs.
 
-
-[compatible IDEs]: https://github.com/JetBrains/projector-installer/blob/master/projector_installer/compatible_ide.json
-
 # Dependencies
 
 None
@@ -177,3 +174,6 @@ MIT
 # Author Information
 
 Ari Kalfus ([@artis3n](https://www.artis3nal.com/)) <dev@artis3nal.com>
+
+
+[compatible IDEs]: https://github.com/JetBrains/projector-installer/blob/master/projector_installer/compatible_ide.json
