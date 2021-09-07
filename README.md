@@ -15,6 +15,8 @@ Supported operating systems:
 - CentOS / RedHat
 - Amazon Linux 2
 
+Note that uninstallation is described below but does not yet work pending <https://youtrack.jetbrains.com/issue/PRJ-681>.
+
 # Example Playbook
 
 Minimal setup:
@@ -162,6 +164,15 @@ Defaults to `2` by default.
 If you would like to enforce full compatibility with Projector, set this value to `1`.
 Note that IDE installation may fail in weird ways if you set this option and supply a non-compatible IDE version.
 See [here][compatible IDEs] for Jetbrains' list of fully compatible IDEs.
+
+# Validation
+
+The role validates user input where possible.
+If your pass incorrect input into the role you will be provided a hint as to what is wrong.
+
+e.g. if your IDE is missing the required `port` attribute:
+
+![validation failed](docs/validation-failed.png)
 
 # Dependencies
 

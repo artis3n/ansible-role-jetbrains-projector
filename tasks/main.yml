@@ -29,7 +29,7 @@
 
 - name: Set configuration idempotency folder
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.projector/configs/.idempotency"
+    path: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency"
     state: directory
     owner: "{{ ansible_user_id  }}"
     group: "{{ ansible_user_id  }}"

@@ -1,7 +1,7 @@
 ---
 - name: Get Existing Config Checksum
   ansible.builtin.slurp:
-    src: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.name.split(' ')[0] }}"
+    src: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.name.split(' ')[0] }}"
   ignore_errors: true
   register: remote_checksum
 
@@ -36,7 +36,7 @@
 
 - name: Save Config Checksum
   ansible.builtin.copy:
-    dest: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.name.split(' ')[0] }}"
+    dest: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.name.split(' ')[0] }}"
     content: "{{ item | hash('sha256') }}"
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"

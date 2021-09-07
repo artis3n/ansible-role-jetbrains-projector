@@ -7,5 +7,5 @@
 
 - name: Remove idempotency cache
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.projector/configs/.idempotency/{{ item.name.split(' ')[0] }}"
+    path: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.name.split(' ')[0] }}"
     state: absent
