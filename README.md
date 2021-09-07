@@ -15,7 +15,7 @@ Supported operating systems:
 - CentOS / RedHat
 - Amazon Linux 2
 
-# Basic Use
+# Example Playbook
 
 Minimal setup:
 
@@ -50,7 +50,7 @@ Complete example:
             update_channel: 2
 
           - name: IntelliJ IDEA Ultimate 2021.2.1
-            port: 9000  # Even if you are uninstalling, you must still specify the port the IDE was installed on
+            port: 9000  # Even if you are uninstalling, you must still specify the port on which the IDE was previously installed
             state: absent
 ```
 
@@ -108,13 +108,13 @@ Jetbrains only tests certain IDEs for complete compatibility with a Projector se
 I haven't noticed an issue using non-certified versions and the UX was too clunky to ask end users to toggle whether they want a fully compatible version.
 So this value accepts any IDE string.
 
-If you want to be certain you are using a fully-compatible IDE version, pick a `name` from Jetbrains' supported list [here][compatible IDEs]
+If you want to be certain you are using a fully-compatible IDE version, pick a `name` from Jetbrains' supported list [here][compatible IDEs].
 
 ### port
 
 The port on which the IDE should listen.
 
-e.g. if you set `port: 9000`, then the IDE will be available at `http://127.0.0.1:9000/`.
+e.g. if you set `port: 9000` then the IDE will be available at `http://<your_hostname>:9000/`.
 
 You must have a different port for each IDE or the role will fail to successfully start one of the IDEs.
 
@@ -142,7 +142,7 @@ The IDE will refuse connections from any hostname not included in this list.
 
 Defaults to `0.0.0.0`.
 
-Example: `restricted_access_hostnames: 100.101.102.103,127.0.0.1
+Example: `restricted_access_hostnames: 100.101.102.103,127.0.0.1`
 
 ### required_connection_password
 
@@ -151,14 +151,16 @@ By default, no connection password is required.
 
 If set, the IDE will refuse connections from URLs missing the `password` query parameter with the correct value.
 
+e.g. `http://127.0.0.1:9000/?password=mypass`
+
 ### update_channel
 
-1 - IDEs tested specifically for compatibility with Projector.
-2 - all IDE versions.
+- `1` - IDEs tested specifically for compatibility with Projector.
+- `2` - all IDE versions.
 
 Defaults to `2` by default.
 If you would like to enforce full compatibility with Projector, set this value to `1`.
-Note that IDE installation may fail in weird ways if you supply a non-compatible IDE version.
+Note that IDE installation may fail in weird ways if you set this option and supply a non-compatible IDE version.
 See [here][compatible IDEs] for Jetbrains' list of fully compatible IDEs.
 
 
