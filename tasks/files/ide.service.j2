@@ -1,9 +1,9 @@
 [Unit]
-Description=Jetbrains Projector - {{ item.name }}
+Description=Jetbrains Projector - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
 
 [Service]
 Type=simple
-ExecStart={{ ansible_env.HOME }}/.projector/configs/{{ item.name.split(' ')[0] }}/run.sh
+ExecStart={{ ansible_env.HOME }}/.projector/configs/{{ item.config | default(item.name.split(' ')[0]) }}/run.sh
 User={{ ansible_user_id }}
 Group={{ ansible_user_id }}
 Restart=always

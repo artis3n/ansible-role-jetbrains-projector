@@ -12,6 +12,7 @@
 
           - name: GoLand 2021.2.2
             port: 9999
+            config: mygoland
             address: 127.0.0.1
             restricted_access_hostnames: 127.0.0.1
             required_connection_password: mypass

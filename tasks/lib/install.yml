@@ -3,8 +3,8 @@
   ansible.builtin.command:
     # Expect an IDE in the list to be in the format: 'WebStorm 2021.1.2'.
     # Splitting on a space and getting the first input should create a config 'WebStorm'.
-    cmd: projector --accept-license autoinstall --config-name "{{ item.name.split(' ')[0] }}" --ide-name "{{ item.name }}"
-    creates: "{{ ansible_env.HOME }}/.projector/configs/{{ item.name.split(' ')[0] }}"
+    cmd: projector --accept-license autoinstall --config-name "{{ item.config | default(item.name.split(' ')[0]) }}" --ide-name "{{ item.name }}"
+    creates: "{{ ansible_env.HOME }}/.projector/configs/{{ item.config | default(item.name.split(' ')[0]) }}"
   environment:
     # centos 7 does not support C.utf8
     # Every system seems to support en_US.utf8

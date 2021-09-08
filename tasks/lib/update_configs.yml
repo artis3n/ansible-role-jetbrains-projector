@@ -1,7 +1,7 @@
 ---
 - name: Get Existing Config Checksum
   ansible.builtin.slurp:
-    src: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.name.split(' ')[0] }}"
+    src: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.config | default(item.name.split(' ')[0]) }}"
   ignore_errors: true
   register: remote_checksum
 
@@ -13,7 +13,7 @@
 - name: Configure Projector IDEs
   when: config_checksum != existing_config_checksum
   ansible.builtin.expect:
-    command: projector config edit "{{ item.name.split(' ')[0] }}"
+    command: projector config edit "{{ item.config | default(item.name.split(' ')[0]) }}"
     responses:
       Enter the path to IDE: ''  # This should always auto-accept the path projector has for this config, so "press enter" with empty string
       Enter a Projector listening port: "{{ item.port | default('') }}"
@@ -36,7 +36,7 @@
 
 - name: Save Config Checksum
   ansible.builtin.copy:
-    dest: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.name.split(' ')[0] }}"
+    dest: "{{ ansible_env.HOME }}/.artis3n-projector/.idempotency/{{ item.config | default(item.name.split(' ')[0]) }}"
     content: "{{ item | hash('sha256') }}"
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"

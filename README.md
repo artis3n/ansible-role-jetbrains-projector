@@ -46,6 +46,7 @@ Complete example:
 
           - name: GoLand 2021.2.2
             port: 9999
+            config: mygoland
             address: 127.0.0.1
             restricted_access_hostnames: 127.0.0.1
             required_connection_password: mypass
@@ -53,6 +54,7 @@ Complete example:
 
           - name: IntelliJ IDEA Ultimate 2021.2.1
             port: 9000  # Even if you are uninstalling, you must still specify the port on which the IDE was previously installed
+            config: myintellij # If you use a custom config name, you **must** include it when uninstalling to uninstall the correct IDE
             state: absent
 ```
 
@@ -121,6 +123,25 @@ e.g. if you set `port: 9000` then the IDE will be available at `http://<your_hos
 You must have a different port for each IDE or the role will fail to successfully start one of the IDEs.
 
 ## Optional
+
+### config
+
+The name of the config file to use when installing an IDE.
+
+Think of the config file as the unique identifier for an IDE installation.
+You may install the same IDE multiple times as long as you use unique config names.
+
+By default, this is the first word in the `name` of the IDE.
+
+e.g.
+
+```yml
+name: IntelliJ IDEA Ultimate 2021.2.1
+config: IntelliJ
+```
+
+You do not need to customize the `config` value unless you are installing multiple versions of the same IDE on the target system.
+Or, if you prefer to customize them to some pattern.
 
 ### state
 

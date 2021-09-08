@@ -7,7 +7,7 @@
   ansible.builtin.include_tasks: lib/validate.yml
   loop: "{{ ides }}"
   loop_control:
-    label: "{{ item.name }}"
+    label: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}"
 
 - name: Debian and related families
   when: ansible_distribution in debian_family
@@ -40,11 +40,11 @@
   when: item.state is defined and item.state == 'absent'
   loop: "{{ ides }}"
   loop_control:
-    label: "{{ item.name }}"
+    label: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}"
 
 - name: Install IDE
   ansible.builtin.include_tasks: lib/install.yml
   when: item.state is not defined or item.state == 'present'
   loop: "{{ ides }}"
   loop_control:
-    label: "{{ item.name }}"
+    label: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}"
