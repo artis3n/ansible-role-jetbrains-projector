@@ -6,5 +6,5 @@
       - item.name is defined
       - item.port is defined
       - item.state is not defined or item.state == 'present' or item.state == 'absent'
-    success_msg: "{{ item.name }}: Validation succeeded."
-    fail_msg: "{{ item.name }}: Validation failed on user input. See above for the failing check."
+    success_msg: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}: Validation succeeded."
+    fail_msg: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}: Validation failed on user input. See above for the failing check."
