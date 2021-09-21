@@ -11,7 +11,6 @@
     existing_config_checksum: "{{ remote_checksum.content | default('Cg==') | b64decode }}"  # default is base64-encoded empty string
 
 - name: Configure Projector IDEs
-  when: config_checksum != existing_config_checksum
   ansible.builtin.expect:
     command: projector config edit "{{ item.config | default(item.name.split(' ')[0]) }}"
     responses:
@@ -28,11 +27,37 @@
       Would you like to set separate read-only password: 'n'  # Can't successfully do this since 'repeat password' conflicts with earlier expect question
       Choose update channel: '2'
   environment:
-    # centos 7 does not support C.utf8
-    # Every system seems to support en_US.utf8
-    # Check with 'locale -a'
+    # centos 7 does not support C.utf8 and centos 8 doesn't support en_US.utf8
+    LC_ALL: C.utf8
+    LANG: C.utf8
+  when:
+    - config_checksum != existing_config_checksum
+    - not (ansible_distribution == 'CentOS' and ansible_distribution_major_version < '8')
+
+- name: Configure Projector IDEs on older systems
+  ansible.builtin.expect:
+    command: projector config edit "{{ item.config | default(item.name.split(' ')[0]) }}"
+    responses:
+      Enter the path to IDE: ''  # This should always auto-accept the path projector has for this config, so "press enter" with empty string
+      Enter a Projector listening port: "{{ item.port | default('') }}"
+      Would you like to specify listening address \(or host\) for Projector: "{{ 'y' if item.address is defined else 'n' }}"
+      Enter a Projector listening address: "{{ item.address | default('*') }}"
+      Would you like to specify hostname for Projector access: "{{ 'y' if item.restricted_access_hostnames is defined else 'n' }}"
+      Please specify the comma-separated list of host names: "{{ item.restricted_access_hostnames | default('0.0.0.0') }}"
+      Use secure connection: "{{ item.secure_connection | default('n') }}"
+      Would you like to set password for connection: "{{ 'y' if item.required_connection_password is defined else 'n' }}"
+      Please specify RW password: "{{ item.required_connection_password | default('') }}"
+      Repeat password: "{{ item.required_connection_password | default('') }}"
+      Would you like to set separate read-only password: 'n'  # Can't successfully do this since 'repeat password' conflicts with earlier expect question
+      Choose update channel: '2'
+  environment:
+    # centos 7 does not support C.utf8 and centos 8 doesn't support en_US.utf8
     LC_ALL: en_US.utf8
     LANG: en_US.utf8
+  when:
+    - config_checksum != existing_config_checksum
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version < '8'
 
 - name: Save Config Checksum
   ansible.builtin.copy:
