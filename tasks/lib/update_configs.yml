@@ -10,11 +10,12 @@
     config_checksum: "{{ item | hash('sha256') }}"
     existing_config_checksum: "{{ remote_checksum.content | default('Cg==') | b64decode }}"  # default is base64-encoded empty string
 
-- name: Configure Projector IDEs
+- name: Configure Projector IDE - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
   ansible.builtin.expect:
     command: projector config edit "{{ item.config | default(item.name.split(' ')[0]) }}"
     responses:
       Enter the path to IDE: ''  # This should always auto-accept the path projector has for this config, so "press enter" with empty string
+      Use separate configuration directory for this config: 'n'
       Enter a Projector listening port: "{{ item.port | default('') }}"
       Would you like to specify listening address \(or host\) for Projector: "{{ 'y' if item.address is defined else 'n' }}"
       Enter a Projector listening address: "{{ item.address | default('*') }}"
@@ -34,7 +35,7 @@
     - config_checksum != existing_config_checksum
     - not (ansible_distribution == 'CentOS' and ansible_distribution_major_version < '8')
 
-- name: Configure Projector IDEs on older systems
+- name: Configure Projector IDEs on older systems - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
   ansible.builtin.expect:
     command: projector config edit "{{ item.config | default(item.name.split(' ')[0]) }}"
     responses:

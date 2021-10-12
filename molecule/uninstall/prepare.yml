@@ -1,0 +1,11 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Install Dependencies
+    become: true
+    ansible.builtin.apt:
+      name: curl
+      update_cache: true
+      state: present

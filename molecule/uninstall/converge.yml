@@ -1,0 +1,23 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include artis3n.jetbrains_projector"
+      ansible.builtin.include_role:
+        name: "artis3n.jetbrains_projector"
+      vars:
+        ides:
+          - name: WebStorm 2021.2.1
+            port: 9876
+
+          - name: IntelliJ IDEA Ultimate 2021.2.1
+            port: 9000
+
+    - name: "Test uninstalling"
+      ansible.builtin.include_role:
+        name: artis3n.jetbrains_projector
+      vars:
+        ides:
+          - name: WebStorm 2021.2.1
+            port: 9876
+            state: absent

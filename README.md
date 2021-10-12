@@ -1,9 +1,11 @@
 # artis3n.jetbrains_projector
 
+[![Ansible Role](https://img.shields.io/ansible/role/d/56173)](https://galaxy.ansible.com/artis3n/jetbrains_projector)
 [![CI Tests](https://github.com/artis3n/ansible-role-jetbrains-projector/actions/workflows/ci.yml/badge.svg)](https://github.com/artis3n/ansible-role-jetbrains-projector/actions/workflows/ci.yml)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/artis3n/ansible-role-jetbrains-projector?include_prereleases)](https://github.com/artis3n/ansible-role-jetbrains-projector/releases)
 ![GitHub last commit](https://img.shields.io/github/last-commit/artis3n/ansible-role-jetbrains-projector)
 ![GitHub](https://img.shields.io/github/license/artis3n/ansible-role-jetbrains-projector)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/artis3n)](https://github.com/sponsors/artis3n)
 [![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)](https://github.com/artis3n/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/artis3n?style=social)](https://twitter.com/Artis3n)
 
@@ -14,8 +16,6 @@ Supported operating systems:
 - Debian
 - CentOS / RedHat
 - Amazon Linux 2
-
-Note that uninstallation is described below but does not yet work pending <https://youtrack.jetbrains.com/issue/PRJ-681>.
 
 # Example Playbook
 
@@ -30,6 +30,20 @@ Minimal setup:
         ides:
           - name: WebStorm 2021.2.1
             port: 9876
+```
+
+Uninstall:
+
+```yml
+- name: Playbook
+  hosts: all
+  roles:
+    - role: artis3n.jetbrains_projector
+      vars:
+        ides:
+          - name: WebStorm 2021.2.1
+            port: 9876
+            state: absent
 ```
 
 Complete example:
@@ -75,7 +89,7 @@ vars:
 ```
 
 All following options are variables inside the individual IDE configurations.
-Each IDE must minimally include `name` and `port`.
+**Each IDE must minimally include `name` and `port`**.
 
 ## Required
 

@@ -1,5 +1,5 @@
 ---
-- name: Install Projector IDEs
+- name: Install Projector IDE - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
   ansible.builtin.command:
     # Expect an IDE in the list to be in the format: 'WebStorm 2021.1.2'.
     # Splitting on a space and getting the first input should create a config 'WebStorm'.
@@ -10,8 +10,10 @@
     LC_ALL: C.utf8
     LANG: C.utf8
   when: not (ansible_distribution == 'CentOS' and ansible_distribution_major_version < '8')
+  async: 600
+  poll: 10
 
-- name: Install Projector IDEs on older systems
+- name: Install Projector IDEs on older systems - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
   ansible.builtin.command:
     # Expect an IDE in the list to be in the format: 'WebStorm 2021.1.2'.
     # Splitting on a space and getting the first input should create a config 'WebStorm'.
@@ -24,6 +26,8 @@
   when:
     - ansible_distribution == 'CentOS'
     - ansible_distribution_major_version < '8'
+  async: 600
+  poll: 10
 
 - name: Set Configuration Files
   ansible.builtin.include_tasks: ./update_configs.yml
