@@ -35,6 +35,14 @@
     group: "{{ ansible_user_id  }}"
     mode: '0700'
 
+- name: Store idempotency README
+  ansible.builtin.copy:
+    src: tasks/files/idempotency_readme.md
+    dest: "{{ ansible_env.HOME }}/.artis3n-projector/README.md"
+    owner: "{{ ansible_user_id  }}"
+    group: "{{ ansible_user_id  }}"
+    mode: '0644'
+
 - name: Uninstall IDE
   ansible.builtin.include_tasks: lib/uninstall.yml
   when: item.state is defined and item.state == 'absent'

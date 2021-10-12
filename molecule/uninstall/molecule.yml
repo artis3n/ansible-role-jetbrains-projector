@@ -20,14 +20,15 @@ provisioner:
 verifier:
   name: ansible
 scenario:
-  name: default
+  name: uninstall
   test_sequence:
 #    - dependency
     - lint
     - destroy
     - syntax
     - create
+    - prepare
     - converge
-    - idempotence
+#    - idempotence  # No idempotency test for uninstallation task
     - verify
     - destroy

@@ -26,7 +26,7 @@ clean:
 
 .PHONY: test
 test:
-	pipenv run molecule test
+	pipenv run molecule test --all
 
 .PHONY: lint
 lint:

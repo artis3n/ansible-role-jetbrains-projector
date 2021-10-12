@@ -1,8 +1,19 @@
 ---
 
-- name: Uninstall IDE
+- name: Deactivate IDE - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
+  ansible.builtin.systemd:
+    name: "{{ item.config | default(item.name.split(' ')[0]) }}.service"
+    state: stopped
+
+- name: Remove service file
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/{{ item.config | default(item.name.split(' ')[0]) }}.service
+    state: absent
+
+- name: Uninstall IDE - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
   ansible.builtin.command:
-    cmd: projector ide uninstall "{{ item.name }}"
+    cmd: projector config remove --uninstall-ide "{{ item.config | default(item.name.split(' ')[0]) }}"
     removes: "{{ ansible_env.HOME }}/.projector/configs/{{ item.config | default(item.name.split(' ')[0]) }}"
 
 - name: Remove idempotency cache
