@@ -1,4 +1,19 @@
 ---
+#- name: Corretto Repo - Key
+#  become: true
+#  ansible.builtin.rpm_key:
+#    key: https://yum.corretto.aws/corretto.key
+#    state: present
+#
+#- name: Corretto Repo - Add Repo
+#  become: true
+#  ansible.builtin.yum_repository:
+#    name: AmazonCorretto
+#    description: Amazon Corretto
+#    baseurl: https://yum.corretto.aws/$basearch
+#    gpgkey: https://yum.corretto.aws/corretto.key
+#    gpgcheck: true
+
 - name: Yum Cache Update
   become: true
   ansible.builtin.yum:

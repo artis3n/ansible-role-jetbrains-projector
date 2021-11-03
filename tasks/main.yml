@@ -25,7 +25,6 @@
 - name: Install Projector
   ansible.builtin.pip:
     name: projector-installer
-    executable: /usr/local/bin/pip3
 
 - name: Set configuration idempotency folder
   ansible.builtin.file:
