@@ -1,4 +1,14 @@
 ---
+# some sub-dependency of openjdk-11-jdk* complains if this specific directory
+# doesn't exist, even if man is not installed
+- name: Ensure man directory for JDK
+  ansible.builtin.file:
+    path: /usr/share/man/man1
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: Install Dependencies
   become: true
   ansible.builtin.apt:
