@@ -107,8 +107,6 @@ vars:
 All following options are variables inside the individual IDE configurations.
 **Each IDE must minimally include `name` and `port`**.
 
-
-
 ## Required
 
 ### name
