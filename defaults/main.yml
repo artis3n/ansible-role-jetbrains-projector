@@ -10,9 +10,9 @@
 #     #
 #     # OPTIONAL: The following parameters are optional. The default values are listed below.
 #     #
-#     config: ''  # The name of the projecto config file to create. By default, this will be the name of the IDE without a version, e.g. 'WebStorm' for 'WebStorm 2021.2.1'.
+#     config: ''  # The name of the project config file to create. By default, this will be the name of the IDE without a version, e.g. 'WebStorm' for 'WebStorm 2021.2.1'.
 #     address: '*'  # address or hostname IDE should listen from.
-#     restricted_access_hostnames: '0.0.0.0'  # Comma-separated list of hostnames allowed to access IDE.
+#     restricted_access_hostnames: '0.0.0.0'  # Comma-separated list of hostnames allowed to access the IDE.
 #     secure_connection: 'n'  # Don't modify this. Secure connections are not supported at this time.
 #     required_connection_password: ''  # Query string password required for successful connections to IDE.
 #     update_channel: 2  # 1 - IDEs tested specifically for compatibility with Projector. 2 - all IDE versions.

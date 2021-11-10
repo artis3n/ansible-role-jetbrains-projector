@@ -1,1 +1,28 @@
 ---
+# Due to systemd issues inside the Docker container, can't gather service_facts with Molecule
+# So these cannot be tested during CI
+# These tasks were originally tested and verified against an Amazon Linux 2 EC2 server
+- name: Gather Service Facts
+  ansible.builtin.service_facts:
+  listen: "Verify IDEs"
+  when: molecule_file is not defined
+
+# Ensures that every configured IDE is running properly through systemd
+# If any failed, their systemd service would be in a failed state and fail this validation
+- name: Verify IDE States
+  ansible.builtin.assert:
+    that:
+      - "'{{ ansible_facts.services[item.config | default(item.name.split(' ')[0]) + '.service'].name }}' == '{{ item.config | default(item.name.split(' ')[0]) }}.service'"
+      - "'{{ ansible_facts.services[item.config | default(item.name.split(' ')[0]) + '.service'].state }}' == 'running'"
+      - "'{{ ansible_facts.services[item.config | default(item.name.split(' ')[0]) + '.service'].status }}' == 'enabled'"
+    success_msg: "Online"
+    fail_msg: "Offline. Troubleshooting required."
+    quiet: true
+  loop: "{{ ides }}"
+  loop_control:
+    label: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}"
+  # Only validate installed IDEs
+  when:
+    - item.state is not defined or item.state != "absent"
+    - molecule_file is not defined
+  listen: "Verify IDEs"
