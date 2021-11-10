@@ -5,6 +5,7 @@
 - name: Gather Service Facts
   ansible.builtin.service_facts:
   listen: "Verify IDEs"
+  when: molecule_file is not defined
 
 # Ensures that every configured IDE is running properly through systemd
 # If any failed, their systemd service would be in a failed state and fail this validation
@@ -21,5 +22,7 @@
   loop_control:
     label: "{{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}"
   # Only validate installed IDEs
-  when: item.state is not defined or item.state != "absent"
+  when:
+    - item.state is not defined or item.state != "absent"
+    - molecule_file is not defined
   listen: "Verify IDEs"

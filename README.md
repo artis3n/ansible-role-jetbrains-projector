@@ -25,7 +25,7 @@ This role requires Ansible to be invoked under Python 3.
 It's 2021, y'all.
 `ansible_python_interpreter` must be set to some Python 3 path (e.g. `/usr/bin/python3`).
 
-e.g. (in `inventory`):
+for example, in `inventory`:
 
 ```ini
 127.0.0.1 ansible_connection=local ansible_user=ec2-user ansible_python_interpreter=/usr/bin/python3
@@ -42,7 +42,7 @@ Minimal setup:
     - role: artis3n.jetbrains_projector
       vars:
         ides:
-          - name: WebStorm 2021.2.1
+          - name: WebStorm 2021.2.3
             port: 9876
 ```
 
@@ -55,7 +55,8 @@ Uninstall:
     - role: artis3n.jetbrains_projector
       vars:
         ides:
-          - name: WebStorm 2021.2.1
+          - name: WebStorm 2021.2.3
+            # Even if you are uninstalling, you must still specify the port on which the IDE was previously installed
             port: 9876
             state: absent
 ```
@@ -69,20 +70,21 @@ Complete example:
     - role: artis3n.jetbrains_projector
       vars:
         ides:
-          - name: WebStorm 2021.2.1
+          - name: WebStorm 2021.2.3
             port: 9876
 
-          - name: GoLand 2021.2.2
+          - name: GoLand 2021.2.4
             port: 9999
             config: mygoland
             address: 127.0.0.1
-            restricted_access_hostnames: 127.0.0.1
+            restricted_access_hostnames: 100.101.102.103,127.0.0.1
             required_connection_password: mypass
             update_channel: 2
 
-          - name: IntelliJ IDEA Ultimate 2021.2.1
-            port: 9000  # Even if you are uninstalling, you must still specify the port on which the IDE was previously installed
-            config: myintellij # If you use a custom config name, you **must** include it when uninstalling to uninstall the correct IDE
+          - name: IntelliJ IDEA Ultimate 2021.2.3
+            port: 9000
+            # If you use a custom config name, you **must** include it when uninstalling to uninstall the correct IDE
+            config: myintellij
             state: absent
 ```
 
@@ -105,12 +107,14 @@ vars:
 All following options are variables inside the individual IDE configurations.
 **Each IDE must minimally include `name` and `port`**.
 
+
+
 ## Required
 
 ### name
 
 The name of the IDE to install.
-This must be the exact version string, e.g. `IntelliJ IDEA Ultimate 2021.2.1`.
+This must be the exact version string, e.g. `IntelliJ IDEA Ultimate 2021.2.3`.
 
 The best way I've found to determine valid IDE names is to install `projector-installer` locally and use the `ide find` command:
 
@@ -123,15 +127,15 @@ projector ide find idea
 #	   1. Idea_Community
 #	   2. Idea_Ultimate
 #Choose IDE type or 0 to exit: [0-2]: 2
-#Do you want to select from Projector-tested IDE only? [y/N] n
-#	   1. IntelliJ IDEA Ultimate 2021.2.1
-#	   2. IntelliJ IDEA Ultimate 2021.2
-#	   3. IntelliJ IDEA Ultimate 2021.1.3
-#	   4. IntelliJ IDEA Ultimate 2021.1.2
-#	   5. IntelliJ IDEA Ultimate 2021.1.1
-#	   6. IntelliJ IDEA Ultimate 2021.1
-#	   7. IntelliJ IDEA Ultimate 2020.3.4
-#	   8. IntelliJ IDEA Ultimate 2020.3.3
+#Do you want to select from Projector-tested IDE only? [y/N]n
+#	   1. IntelliJ IDEA Ultimate 2021.2.3
+#	   2. IntelliJ IDEA Ultimate 2021.2.2
+#	   3. IntelliJ IDEA Ultimate 2021.2.1
+#	   4. IntelliJ IDEA Ultimate 2021.2
+#	   5. IntelliJ IDEA Ultimate 2021.1.3
+#	   6. IntelliJ IDEA Ultimate 2021.1.2
+#	   7. IntelliJ IDEA Ultimate 2021.1.1
+#	   8. IntelliJ IDEA Ultimate 2021.1
 # ...
 ```
 
@@ -200,9 +204,9 @@ Example: `restricted_access_hostnames: 100.101.102.103,127.0.0.1`
 A query string password required for successful connections to IDE.
 By default, no connection password is required.
 
-If set, the IDE will refuse connections from URLs missing the `password` query parameter with the correct value.
+If set, the IDE will refuse connections from URLs missing the `token` query parameter with the correct value.
 
-e.g. `http://127.0.0.1:9000/?password=mypass`
+e.g. `http://127.0.0.1:9000/?token=mypass`
 
 ### update_channel
 
@@ -211,7 +215,7 @@ e.g. `http://127.0.0.1:9000/?password=mypass`
 
 Defaults to `2` by default.
 If you would like to enforce full compatibility with Projector, set this value to `1`.
-Note that IDE installation may fail in weird ways if you set this option and supply a non-compatible IDE version.
+Note that IDE installation may fail in weird ways if you set this option and supply a non-compatible IDE version, so modifying this is not recommended.
 See [here][compatible IDEs] for Jetbrains' list of fully compatible IDEs.
 
 # Validation
