@@ -17,6 +17,20 @@ Supported operating systems:
 - CentOS / RedHat
 - Amazon Linux 2
 
+# Prerequisites
+
+## Python 3
+
+This role requires Ansible to be invoked under Python 3.
+It's 2021, y'all.
+`ansible_python_interpreter` must be set to some Python 3 path (e.g. `/usr/bin/python3`).
+
+e.g. (in `inventory`):
+
+```ini
+127.0.0.1 ansible_connection=local ansible_user=ec2-user ansible_python_interpreter=/usr/bin/python3
+```
+
 # Example Playbook
 
 Minimal setup:

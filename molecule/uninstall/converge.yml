@@ -7,10 +7,10 @@
         name: "artis3n.jetbrains_projector"
       vars:
         ides:
-          - name: WebStorm 2021.2.1
+          - name: WebStorm 2021.2.3
             port: 9876
 
-          - name: IntelliJ IDEA Ultimate 2021.2.1
+          - name: IntelliJ IDEA Ultimate 2021.2.3
             port: 9000
 
     - name: "Test uninstalling"
@@ -18,6 +18,6 @@
         name: artis3n.jetbrains_projector
       vars:
         ides:
-          - name: WebStorm 2021.2.1
+          - name: WebStorm 2021.2.3
             port: 9876
             state: absent

@@ -17,6 +17,10 @@ lint: |
   ansible-lint
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      instance:
+        ansible_python_interpreter: "/usr/bin/python3"
 verifier:
   name: ansible
 scenario:

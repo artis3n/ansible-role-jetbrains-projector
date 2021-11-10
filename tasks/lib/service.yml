@@ -8,6 +8,7 @@
   register: systemd_copy
 
 - name: Activate IDE - {{ item.name }} - {{ item.config | default(item.name.split(' ')[0]) }}
+  become: true
   ansible.builtin.systemd:
     name: "{{ item.config | default(item.name.split(' ')[0]) }}.service"
     enabled: true

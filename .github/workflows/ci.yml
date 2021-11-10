@@ -17,8 +17,8 @@ jobs:
           - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
           - geerlingguy/docker-ubuntu2004-ansible:latest
           - geerlingguy/docker-centos8-ansible:latest
-          - geerlingguy/docker-centos7-ansible:latest
-          - geerlingguy/docker-amazonlinux2-ansible:latest
+          - geerlingguy/docker-centos7-ansible:python3
+          - ghcr.io/artis3n/docker-amazonlinux2-ansible:latest
           - ghcr.io/artis3n/docker-debian11-ansible:latest
           - geerlingguy/docker-debian10-ansible:latest
       fail-fast: false
@@ -27,9 +27,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python 3.x
+        id: setup-python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
@@ -40,9 +41,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pipenv-
+          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
 
       - name: Install Packages
         run: pipenv install --dev
@@ -54,3 +53,6 @@ jobs:
         run: pipenv run molecule test
         env:
           MOLECULE_DISTRO: ${{ matrix.distros }}
+          # https://www.jeffgeerling.com/blog/2020/getting-colorized-output-molecule-and-ansible-on-github-actions-ci
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'

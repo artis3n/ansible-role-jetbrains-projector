@@ -6,20 +6,28 @@ apt_dependencies:
   - libxi6
   - libxrender1
   - libxtst6
+  - openjdk-11-jre-headless
   - python3
   - python3-cryptography
   - python3-pexpect
   - python3-pip
+  - python3-setuptools
+  - python3-wheel
 
 yum_dependencies:
   - freetype
+  - gcc
+#  - java-17-amazon-corretto-devel # (or headless?)
   - less
   - libXext
   - libXi
   - libXrender
   - libXtst
   - python3
+  - python3-devel
   - python3-pip
+  - python3-setuptools
+  - python3-wheel
 
 centos7_dependencies:
   - pyOpenSSL
@@ -30,6 +38,12 @@ centos_modern_dependencies:
   - python3-cryptography
   - python3-pexpect
   - python3-pyOpenSSL
+
+centos_java:
+  - java-11-openjdk-headless
+
+amazonlinux_java:
+  - java-11-amazon-corretto-headless
 
 debian_family:
   - Ubuntu
