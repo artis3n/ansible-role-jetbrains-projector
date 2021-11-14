@@ -6,7 +6,7 @@ apt_dependencies:
   - libxi6
   - libxrender1
   - libxtst6
-  - openjdk-11-jre-headless
+  - openjdk-11-jre
   - python3
   - python3-cryptography
   - python3-pexpect
@@ -40,10 +40,10 @@ centos_modern_dependencies:
   - python3-pyOpenSSL
 
 centos_java:
-  - java-11-openjdk-headless
+  - java-11-openjdk
 
 amazonlinux_java:
-  - java-11-amazon-corretto-headless
+  - java-11-amazon-corretto
 
 debian_family:
   - Ubuntu
