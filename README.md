@@ -17,7 +17,7 @@ Supported operating systems:
 - CentOS / RedHat
 - Amazon Linux 2
 
-Note: While Projector and Jetbrains IDEs support ARM servers, the two together are "not well tested" by Jetbrains, so you may experience [issues](https://youtrack.jetbrains.com/issue/PRJ-160) running IDEs on ARM that are outside the scope of this role.
+Note: While Projector and Jetbrains IDEs support ARM servers, the two together are "not well tested" by Jetbrains, so you may experience [issues](https://youtrack.jetbrains.com/issue/PRJ-160) running IDEs on ARM, which are outside the scope of this role.
 
 # Prerequisites
 
