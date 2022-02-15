@@ -5,7 +5,7 @@ galaxy_info:
   description: Install and configure a Jetbrains Projector server.
   license: license (MIT)
 
-  min_ansible_version: 4.1
+  min_ansible_version: 2.11
 
   # Find supported platforms on https://galaxy.ansible.com/api/v1/platforms/
   platforms:
