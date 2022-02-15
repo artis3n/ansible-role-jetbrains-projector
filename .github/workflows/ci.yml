@@ -14,9 +14,13 @@ jobs:
       matrix:
         distros:
           - ghcr.io/artis3n/docker-ubuntu2104-ansible:latest
-          - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
+          #  20.10 is EOL
+          # apt update: "The repository 'http://archive.ubuntu.com/ubuntu groovy Release' does not have a Release file"
+          # - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
           - geerlingguy/docker-ubuntu2004-ansible:latest
-          - geerlingguy/docker-centos8-ansible:latest
+          # Centos 8 reached EOL on Dec 31, 2021
+          # Failed to download metadata for repo 'appstream': Yum repo downloading error: Downloading error(s): repodata/75e00d390273f65b94d63a5ac7db2677d832bfa95b3d7eecf651c6f45e33f8ff-modules.yaml.xz - Cannot download, all mirrors were already tried without success
+          # - geerlingguy/docker-centos8-ansible:latest
           - geerlingguy/docker-centos7-ansible:python3
           - ghcr.io/artis3n/docker-amazonlinux2-ansible:latest
           - ghcr.io/artis3n/docker-debian11-ansible:latest
@@ -26,31 +30,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install dependency manager
+        run: pipx install poetry
+
       - name: Set up Python 3.x
         id: setup-python
         uses: actions/setup-python@v2
         with:
           python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pipenv
-
-      - name: Use Cache
-        uses: actions/cache@v2.1.7
-        with:
-          path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          # Once supported in https://github.com/actions/setup-python/pull/281
+          # cache: 'poetry'
 
       - name: Install Packages
-        run: pipenv install --dev
+        run: poetry install --no-interaction
 
       - name: Lint
         run: make lint
 
       - name: Molecule
-        run: pipenv run molecule test
+        run: poetry run molecule test
         env:
           MOLECULE_DISTRO: ${{ matrix.distros }}
           # https://www.jeffgeerling.com/blog/2020/getting-colorized-output-molecule-and-ansible-on-github-actions-ci

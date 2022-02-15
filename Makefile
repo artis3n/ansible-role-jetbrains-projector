@@ -5,26 +5,27 @@ all: dev-install
 
 .PHONY: install
 install:
-	pipenv install
+	poetry install --no-dev
 
 .PHONY: dev-install
 dev-install:
-	pipenv install --dev
+	poetry install
+	poetry run pre-commit install --install-hooks
 
 .PHONY: clean
 clean:
-	pipenv --rm
+	poetry env remove
 
 .PHONY: test
 test:
-	pipenv run molecule test --all
+	poetry run molecule test --all
 
 .PHONY: lint
 lint:
-	pipenv run yamllint .
-	pipenv run ansible-lint
+	poetry run yamllint .
+	poetry run ansible-lint
 
 .PHONY: update
 update:
-	pipenv update --dev
-	pipenv run pre-commit autoupdate
+	poetry update
+	poetry run pre-commit autoupdate
