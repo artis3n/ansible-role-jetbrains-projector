@@ -13,7 +13,6 @@ platforms:
     pre_build_image: true
 lint: |
   set -e
-  yamllint .
   ansible-lint
 provisioner:
   name: ansible

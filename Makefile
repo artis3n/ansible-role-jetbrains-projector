@@ -22,7 +22,6 @@ test:
 
 .PHONY: lint
 lint:
-	poetry run yamllint .
 	poetry run ansible-lint
 
 .PHONY: update
