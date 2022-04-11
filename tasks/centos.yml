@@ -1,11 +1,11 @@
 ---
-#- name: Corretto Repo - Key
+# - name: Corretto Repo - Key
 #  become: true
 #  ansible.builtin.rpm_key:
 #    key: https://yum.corretto.aws/corretto.key
 #    state: present
 #
-#- name: Corretto Repo - Add Repo
+# - name: Corretto Repo - Add Repo
 #  become: true
 #  ansible.builtin.yum_repository:
 #    name: AmazonCorretto

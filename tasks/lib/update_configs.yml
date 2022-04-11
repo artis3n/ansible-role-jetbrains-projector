@@ -6,7 +6,7 @@
   register: remote_checksum
 
 - name: Config Checksums
-  set_fact:
+  ansible.builtin.set_fact:
     config_checksum: "{{ item | hash('sha256') }}"
     existing_config_checksum: "{{ remote_checksum.content | default('Cg==') | b64decode }}"  # default is base64-encoded empty string
 
