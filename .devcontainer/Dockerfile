@@ -14,7 +14,8 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 #    && rm -rf /tmp/pip-tmp
 
 # https://python-poetry.org/docs/master/#installing-with-the-official-installer
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN su -c "curl -sSL https://install.python-poetry.org | python3 -" vscode \
+    && ln -s /home/vscode/.local/bin/poetry /usr/local/bin/poetry
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
