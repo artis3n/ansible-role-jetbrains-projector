@@ -44,9 +44,6 @@ jobs:
       - name: Install Packages
         run: poetry install --no-interaction
 
-      - name: Lint
-        run: make lint
-
       - name: Molecule
         run: poetry run molecule test
         env:
