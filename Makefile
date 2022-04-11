@@ -14,11 +14,11 @@ dev-install:
 
 .PHONY: clean
 clean:
-	poetry env remove
+	poetry env remove 3.10
 
 .PHONY: test
 test:
-	poetry run molecule test --all
+	poetry run molecule test --all --parallel
 
 .PHONY: lint
 lint:
