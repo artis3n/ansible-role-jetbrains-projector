@@ -25,13 +25,13 @@
     (ansible_distribution == 'CentOS' and ansible_distribution_major_version < '8')
     or ansible_distribution == 'Amazon'
   block:
-    - name: Install Dependencies
+    - name: Install Legacy Dependencies
       become: true
       ansible.builtin.yum:
         name: '{{ yum_dependencies + centos7_dependencies }}'
         state: present
 
-    - name: Install Pip Dependencies
+    - name: Install Legacy Pip Dependencies
       ansible.builtin.pip:
         name: pexpect
 
@@ -41,7 +41,10 @@
     name: '{{ yum_dependencies + centos_modern_dependencies }}'
     state: present
   when: >
-    ansible_distribution == 'CentOS' and ansible_distribution_major_version >= '8'
+    not (
+    (ansible_distribution == 'CentOS' and ansible_distribution_major_version < '8')
+    or ansible_distribution == 'Amazon'
+    )
 
 - name: Install Java Corretto JRE
   become: true
