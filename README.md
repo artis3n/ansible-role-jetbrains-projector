@@ -12,10 +12,11 @@
 This role installs and configures [Jetbrains Projector](https://lp.jetbrains.com/projector/) IDEs leveraging Jetbrains' [projector-installer](https://github.com/JetBrains/projector-installer) command.
 
 Supported operating systems:
-- Ubuntu
-- Debian
+- Debian / Ubuntu
 - CentOS / RedHat
+- Rocky Linux / AlmaLinux
 - Amazon Linux 2
+- Raspbian (untested but should work through Debian support)
 
 Note: While Projector and Jetbrains IDEs support ARM servers, the two together are "not well tested" by Jetbrains, so you may experience [issues](https://youtrack.jetbrains.com/issue/PRJ-160) running IDEs on ARM, which are outside the scope of this role.
 

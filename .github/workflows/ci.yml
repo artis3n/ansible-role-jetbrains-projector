@@ -18,10 +18,12 @@ jobs:
           # apt update: "The repository 'http://archive.ubuntu.com/ubuntu groovy Release' does not have a Release file"
           # - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
           - geerlingguy/docker-ubuntu2004-ansible:latest
-          # Centos 8 reached EOL on Dec 31, 2021
-          # Failed to download metadata for repo 'appstream': Yum repo downloading error: Downloading error(s): repodata/75e00d390273f65b94d63a5ac7db2677d832bfa95b3d7eecf651c6f45e33f8ff-modules.yaml.xz - Cannot download, all mirrors were already tried without success
-          # - geerlingguy/docker-centos8-ansible:latest
-          - geerlingguy/docker-centos7-ansible:python3
+          - geerlingguy/docker-rockylinux8-ansible:latest
+          - ghcr.io/artis3n/docker-almalinux8-ansible:latest
+          - geerlingguy/docker-centos8-ansible:latest
+          # Python 3 sucks on Centos 7, and is a requirement for this role.
+          # We'll continue to support Centos 7 if issues are reported to the repo.
+          # - geerlingguy/docker-centos7-ansible:python3
           - ghcr.io/artis3n/docker-amazonlinux2-ansible:latest
           - ghcr.io/artis3n/docker-debian11-ansible:latest
           - geerlingguy/docker-debian10-ansible:latest

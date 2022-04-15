@@ -53,3 +53,7 @@ debian_family:
 centos_family:
   - Amazon
   - CentOS
+  - Rocky
+  - AlmaLinux
+  - OracleLinux
+  - RedHat
