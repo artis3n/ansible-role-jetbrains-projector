@@ -11,20 +11,20 @@ ansible-core = ">=2.13.1,<2.14.0"
 
 [[package]]
 name = "ansible-compat"
-version = "2.1.0"
+version = "2.2.0"
 description = "Ansible compatibility goodies"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
-jsonschema = ">=4.5.1"
+jsonschema = ">=4.6.0"
 PyYAML = "*"
 subprocess-tee = ">=0.3.5"
 
 [package.extras]
-docs = ["sphinx-autobuild (>=0.7.1,<1.0)", "sphinx (>=4.2.0,<5.0)", "sphinx-ansible-theme", "myst-parser"]
-test = ["coverage", "flaky", "pip-tools", "pytest", "pytest-markdown", "pytest-mock", "pytest-plus"]
+test = ["pytest-plus", "pytest-mock", "pytest-markdown", "pytest", "pip-tools", "flaky", "coverage"]
+docs = ["myst-parser", "sphinx-ansible-theme", "sphinx (>=4.2.0,<5.0)", "sphinx-autobuild (>=0.7.1,<1.0)"]
 
 [[package]]
 name = "ansible-core"
@@ -214,7 +214,7 @@ optional = false
 python-versions = "*"
 
 [package.extras]
-test = ["flake8 (==3.7.8)", "hypothesis (==3.55.3)"]
+test = ["hypothesis (==3.55.3)", "flake8 (==3.7.8)"]
 
 [[package]]
 name = "cookiecutter"
@@ -390,14 +390,14 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "molecule"
-version = "4.0.0"
+version = "4.0.1"
 description = "Molecule aids in the development and testing of Ansible roles"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
-ansible-compat = ">=2.1.0"
+ansible-compat = ">=2.2.0"
 cerberus = ">=1.3.1,<1.3.3 || >1.3.3,<1.3.4 || >1.3.4"
 click = ">=8.0,<9"
 click-help-colors = ">=0.9"
@@ -431,12 +431,12 @@ ansible-compat = ">=0.5.0"
 docker = ">=4.3.1"
 molecule = ">=3.4.0"
 requests = "*"
-selinux = {version = "*", markers = "sys_platform == \"linux\" or sys_platform == \"linux2\""}
+selinux = {version = "*", markers = "sys_platform == \"linux2\" or sys_platform == \"linux\""}
 
 [package.extras]
-docs = ["simplejson", "sphinx", "sphinx-ansible-theme (>=0.2.2)"]
-lint = ["pre-commit (>=1.21.0)"]
 test = ["molecule"]
+lint = ["pre-commit (>=1.21.0)"]
+docs = ["sphinx-ansible-theme (>=0.2.2)", "sphinx", "simplejson"]
 
 [[package]]
 name = "nodeenv"
@@ -486,8 +486,8 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-dev = ["pre-commit", "tox"]
-testing = ["pytest", "pytest-benchmark"]
+testing = ["pytest-benchmark", "pytest"]
+dev = ["tox", "pre-commit"]
 
 [[package]]
 name = "pre-commit"
@@ -637,10 +637,10 @@ optional = false
 python-versions = "*"
 
 [package.extras]
-examples = ["html5lib", "packaging", "pygraphviz", "requests"]
-lint = ["black", "flake8"]
-release = ["setl", "towncrier"]
-test = ["commentjson", "packaging", "pytest"]
+test = ["pytest", "packaging", "commentjson"]
+release = ["towncrier", "setl"]
+lint = ["flake8", "black"]
+examples = ["requests", "pygraphviz", "packaging", "html5lib"]
 
 [[package]]
 name = "rich"
@@ -708,7 +708,7 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-test = ["enrich (>=1.2.6)", "mock (>=4.0.3)", "molecule (>=3.4.0)", "pytest-cov (>=2.12.1)", "pytest-plus (>=0.2)", "pytest-xdist (>=2.3.0)", "pytest (>=6.2.5)"]
+test = ["pytest (>=6.2.5)", "pytest-xdist (>=2.3.0)", "pytest-plus (>=0.2)", "pytest-cov (>=2.12.1)", "molecule (>=3.4.0)", "mock (>=4.0.3)", "enrich (>=1.2.6)"]
 
 [[package]]
 name = "text-unidecode"
@@ -804,7 +804,7 @@ pyyaml = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ed2f496d5e4707e901f33cec214de672aa6b02020853a92bd24c3b7bcfa4d738"
+content-hash = "536c51236805296afabc818e41b923eecafa4b2fc276416409b3e77a3ec059fa"
 
 [metadata.files]
 ansible = [
@@ -812,8 +812,8 @@ ansible = [
     {file = "ansible-6.1.0.tar.gz", hash = "sha256:91e4b23945f190aaa123c6ba4f8accb8e7f8905991bd3bb19b89afbdca456822"},
 ]
 ansible-compat = [
-    {file = "ansible-compat-2.1.0.tar.gz", hash = "sha256:62bae1bb5c20663d5ee1bfec04f073c08be721040af9ef5bddc7904e6678d184"},
-    {file = "ansible_compat-2.1.0-py3-none-any.whl", hash = "sha256:4ef7350fa1e768719a6df0239474bab5733c8910627ed6e3ec1be5381d710d17"},
+    {file = "ansible-compat-2.2.0.tar.gz", hash = "sha256:676db8ec0449d1f07038625b8ebb8ceef5f8ad3a1af3ee82d4ed66b9b04cb6fa"},
+    {file = "ansible_compat-2.2.0-py3-none-any.whl", hash = "sha256:ce69a67785ae96e8962794a47494339991a0ae242ab5dd14a76ee2137d09072e"},
 ]
 ansible-core = [
     {file = "ansible-core-2.13.1.tar.gz", hash = "sha256:abd478ceff1a0aba95e94ceab8dc820f407bcc0f0033dc546840cddc29a36958"},
@@ -1045,8 +1045,8 @@ markupsafe = [
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
 ]
 molecule = [
-    {file = "molecule-4.0.0-py3-none-any.whl", hash = "sha256:27f03a90019c8dea77ca5b553552f0ea355fe44797f3533554a4d7fcce456754"},
-    {file = "molecule-4.0.0.tar.gz", hash = "sha256:31cbcdafb96a3e0df2a02ab49b4a4ce7d0c3129b34c351935612bf8097c999e2"},
+    {file = "molecule-4.0.1-py3-none-any.whl", hash = "sha256:dcf829a70fd987ad21d28d44820b05d7fc09250dc19a79572ca10669e27bd8be"},
+    {file = "molecule-4.0.1.tar.gz", hash = "sha256:ee10e5463bc9940f9afd9b85812c63eacefea889a99c21274f4054ebe248c3b9"},
 ]
 molecule-docker = [
     {file = "molecule-docker-1.1.0.tar.gz", hash = "sha256:e15133395f10dbf60f75125aae7145f47747fc7158f2317698885013796252bf"},
