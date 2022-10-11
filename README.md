@@ -9,6 +9,10 @@
 [![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)](https://github.com/artis3n/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/artis3n?style=social)](https://twitter.com/Artis3n)
 
+> **Warning**
+>
+> Per <https://github.com/JetBrains/projector-server#the-state-of-projector>, Projector is suspended by Jetbrains in favor of their Gateway product. This role is therefore archived.
+
 This role installs and configures [Jetbrains Projector](https://lp.jetbrains.com/projector/) IDEs leveraging Jetbrains' [projector-installer](https://github.com/JetBrains/projector-installer) command.
 
 Supported operating systems:
